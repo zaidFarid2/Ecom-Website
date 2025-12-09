@@ -1,10 +1,16 @@
 import express from "express";
 import path from "path";
+import { clerkMiddleware } from '@clerk/express'
+
+
 import { ENV } from "./config/env.js";
+import { DBconnnection } from "./config/db.js";
 
 const app = express();
 const __dirname = path.resolve();
 
+
+app.use(clerkMiddleware()) //auth object under the req 
 app.get("/api/health", (req, res) => {
     res.status(200).json({ message: "Success" });
 });
@@ -17,6 +23,7 @@ if (ENV.NODE_ENV === "production") {
     });
 }
 
-app.listen(3000, () => console.log("app is run"));
-
-
+app.listen(3000, () => {
+    console.log("app is run")
+    DBconnnection()
+});
