@@ -32,7 +32,7 @@ const addressSchema = new mongoose.Schema({
     }
 },{timestamps:true}) 
     
-const userScehma = mongoose.Schema({
+const userScehma =  new mongoose.Schema({
     email:{
         type:String,
         required:true,
