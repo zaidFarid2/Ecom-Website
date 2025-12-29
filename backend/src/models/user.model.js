@@ -52,7 +52,7 @@ const userScehma =  new mongoose.Schema({
         required:true
     },
     addresses:[addressSchema],
-    whishlist:[
+    wishlist:[
         {
             type:mongoose.Schema.Types.ObjectId,
             ref:"Product"
