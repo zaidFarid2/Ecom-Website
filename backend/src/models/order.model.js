@@ -61,9 +61,10 @@ const orderSchema = new mongoose.Schema({
     orderItem:[orderItemSchema],
     
     shippingAddress:{
-        type:shippingAddress,
-        required:true,
+        type:shippingAddressSchema,
+        required:true
     },
+
     paymentResult:{
         id:String,
         status:String,

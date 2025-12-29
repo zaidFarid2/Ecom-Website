@@ -12,7 +12,7 @@ const App = () => {
       <SignedIn>
         <UserButton />
       </SignedIn>
-    </div>
+    </div>  
   )
 }
 
