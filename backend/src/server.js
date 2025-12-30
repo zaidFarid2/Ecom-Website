@@ -9,6 +9,10 @@ import { ENV } from "./config/env.js";
 import { DBconnnection } from "./config/db.js";
 
 import adminroutes from "./routes/admin.route.js"
+import userRoutes from "./routes/user.route.js"
+import orderRoutes from "./routes/order.route.js"
+import reviewRoutes from "./routes/review.route.js"
+import productRoutes from "./routes/product.route.js"
 
 const app = express();  
 const __dirname = path.resolve();
@@ -20,7 +24,13 @@ app.get("/api/inngest",serve({client:inngest,functions}))
 app.get("/api/health", (req, res) => {
     res.status(200).json({ message: "Success" });
 });
+
 app.get("/api/admin",adminroutes)
+app.get("/api/user",userRoutes)
+app.get("/api/order",orderRoutes)
+app.get("/api/review",orderRoutes)
+app.get("/api/product",orderRoutes)
+
         
 
 
