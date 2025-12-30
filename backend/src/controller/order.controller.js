@@ -10,7 +10,7 @@ export const createOrder = asyncHandler( async(req,res)=>{
         const user = req.user       
         const {orderItems,shippingAddress,paymentResult,totalPrice} = req.body
         if(!orderItems||orderItems.length === 0 ){
-            res.status(400).json({error:"No order items"})
+            return res.status(400).json({error:"No order items"})
         }
         // validation of stock nd product
         for( const  item of orderItems){
@@ -34,11 +34,24 @@ export const createOrder = asyncHandler( async(req,res)=>{
 
         //update product stock like decreament the stock count
 
+        // == CodeRAbbit changes
         for (const item of orderItems){
-            await  Product.findByIdAndUpdate(item.product._id,{
-                $inc:{stock: -item.quantity},
-            })
+            const result = await Product.findOneAndUpdate(
+                { _id: item.product._id, stock: { $gte: item.quantity } },
+                { $inc: { stock: -item.quantity } },
+                { new: true }
+            );
+            if (!result) {
+                // Consider rolling back or handling insufficient stock
+            }
         }
+
+
+        // for (const item of orderItems){
+        //     await  Product.findByIdAndUpdate(item.product._id,{
+        //         $inc:{stock: -item.quantity},
+        //     })
+        // }
 
         res.status(201).json({ message: "Order created successfully",order });
 
@@ -52,7 +65,7 @@ export const createOrder = asyncHandler( async(req,res)=>{
 export const getUserOrder = asyncHandler( async(req,res)=>{
     try {
       
-        const order = await Order.findById(req.user.cler_id).populate("orderItems.product").sort({createdAt:-1})
+        const order = await Order.findById(req.user.clerk_id).populate("orderItems.product").sort({createdAt:-1})
       
         //chck each order is reviewed
         const orderId = order.map( (order)=>order._id )

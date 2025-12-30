@@ -96,7 +96,7 @@ export const deleteAddress = asyncHandler( async(req,res)=>{
     try {
         const {addressId} = req.params    
         const user = req.user
-        user.addAddresses.pull(addressId)
+        user.Addresses.pull(addressId)
         await user.save()
         res.status(200).json({message:"address delete successfuly",addresses:user.addresses})
             
@@ -157,7 +157,7 @@ export const removeFromWishlist = asyncHandler( async(req,res)=>{
         user.wishlist.pull(productId)
         // if product is not in wishlist nd u want to remove it 
         if(user.wishlist.includes(productId)){
-            return res.state(400).json({error:"Product is not evene in wishlist!!"})
+            return res.status(400).json({error:"Product is not evene in wishlist!!"})
         }
         await user.save()
     } 
@@ -167,3 +167,4 @@ export const removeFromWishlist = asyncHandler( async(req,res)=>{
         
     }
 })
+    

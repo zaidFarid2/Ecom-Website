@@ -25,12 +25,11 @@ app.get("/api/health", (req, res) => {
     res.status(200).json({ message: "Success" });
 });
 
-app.get("/api/admin",adminroutes)
-app.get("/api/user",userRoutes)
-app.get("/api/order",orderRoutes)
-app.get("/api/review",orderRoutes)
-app.get("/api/product",orderRoutes)
-
+app.use("/api/admin", adminroutes)
+app.use("/api/user", userRoutes)
+app.use("/api/order", orderRoutes)
+app.use("/api/review", reviewRoutes)
+app.use("/api/product", productRoutes)
         
 
 

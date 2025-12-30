@@ -11,8 +11,8 @@ router.use(protectRoute)
 
 router.post("/addresses",addAddress)
 router.get("/addresses",getAddress)
-router.put("/addresses/:AddressId",updateAddress)
-router.delete("/addresses/:AddressId",deleteAddress)
+router.put("/addresses/:addressId",updateAddress)
+router.delete("/addresses/:addressId",deleteAddress)
 
 //wishlist Routes
 
