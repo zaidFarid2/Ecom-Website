@@ -19,8 +19,8 @@ import cartRoutes from "./routes/cart.route.js"
 const app = express();  
 const __dirname = path.resolve();
 
+app.use("/", (req, res) => res.send("aho"));
 app.use(express.json())
-
 app.use(clerkMiddleware()) //auth object under the req 
 app.use(cors({origin:"http://localhost:5173",credentials:true})) //credentials allows browser to  send the cookies to the server with request   
 app.use("/api/inngest",serve({client:inngest,functions}))
@@ -41,7 +41,7 @@ app.use("/api/cart",cartRoutes)
     if (ENV.NODE_ENV === "production") {
         app.use(express.static(path.join(__dirname, "../admin/dist")));
 
-        app.get("/{*any}", (req, res) => {
+        app.get("*", (req, res) => {
             res.sendFile(path.join(__dirname, "../admin/dist/index.html"));
         });
     }
