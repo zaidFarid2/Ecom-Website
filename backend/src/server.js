@@ -20,6 +20,7 @@ const app = express();
 const __dirname = path.resolve();
 
 app.use(express.json())
+app.get("/",(req,res)=>{res.send("hello jee")})
 
 app.use(clerkMiddleware()) //auth object under the req 
 app.use(cors({origin:"http://localhost:5173",credentials:true})) //credentials allows browser to  send the cookies to the server with request   
