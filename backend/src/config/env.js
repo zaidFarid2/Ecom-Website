@@ -10,4 +10,5 @@ export const ENV = {
     CLOUDINAR_API_SECRET:process.env.CLOUDINAR_API_SECRET,
     CLOUDINAR_API_NAME:process.env.CLOUDINAR_API_NAME,
     ADMIN_EMAIL:process.env.ADMIN_EMAIL,
+    CLIENT_URI:process.env.CLIENT_URI,
 }
