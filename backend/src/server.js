@@ -19,32 +19,38 @@ import cartRoutes from "./routes/cart.route.js"
 const app = express();  
 const __dirname = path.resolve();
 
-app.use("/", (req, res) => res.send("aho"));
-app.use(express.json())
-app.use(clerkMiddleware()) //auth object under the req 
-app.use(cors({origin:"http://localhost:5173",credentials:true})) //credentials allows browser to  send the cookies to the server with request   
-app.use("/api/inngest",serve({client:inngest,functions}))
+// 1. Middlewares (Inhe upar hi rehne dein)
+app.use(express.json());
+app.use(clerkMiddleware()); 
+app.use(cors({origin:"http://localhost:5173",credentials:true}));
+
+// 2. Inngest Route (Isay upar rakhein taake koi aur route ise block na kare)
+app.use("/api/inngest", serve({ client: inngest, functions }));
+
+// 3. Health Check
 app.use("/api/health", (req, res) => {
     res.status(200).json({ message: "Success" });
 });
 
-app.use("/api/admin",adminroutes)   
-app.use("/api/user",userRoutes)
-app.use("/api/order",orderRoutes)
-app.use("/api/review",reviewRoutes)
-app.use("/api/product",productRoutes)
-app.use("/api/cart",cartRoutes)
+// 4. API Routes
+app.use("/api/admin", adminroutes);   
+app.use("/api/user", userRoutes);
+app.use("/api/order", orderRoutes);
+app.use("/api/review", reviewRoutes);
+app.use("/api/product", productRoutes);
+app.use("/api/cart", cartRoutes);
 
-        
+// 5. Default/Home Route (AGAR zaroorat hai toh isay niche rakhein)
+app.get("/", (req, res) => res.send("Server is running!"));
 
+// 6. Static Files (Production)
+if (ENV.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "../admin/dist")));
+    app.get("*", (req, res) => {
+        res.sendFile(path.join(__dirname, "../admin/dist/index.html"));
+    });
+}
 
-    if (ENV.NODE_ENV === "production") {
-        app.use(express.static(path.join(__dirname, "../admin/dist")));
-
-        app.get("*", (req, res) => {
-            res.sendFile(path.join(__dirname, "../admin/dist/index.html"));
-        });
-    }
 const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
         console.log("app is run")
