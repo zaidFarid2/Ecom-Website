@@ -21,7 +21,7 @@ const syncUser = inngest.createFunction(
             whishlist:[],
         }
     
-        await User.created(newUser)
+        await User.create(newUser)
     }
 )
 
