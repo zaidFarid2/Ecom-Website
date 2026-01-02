@@ -6,7 +6,7 @@ const router = Router()
 
 
 router.post("/",protectRoute,createOrder)
-router.post("/",protectRoute,getUserOrder)
+router.get("/",protectRoute,getUserOrder)
 
 
 
