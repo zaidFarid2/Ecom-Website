@@ -35,9 +35,9 @@ app.use("/api/health", (req, res) => {
 // 4. API Routes
 app.use("/api/admin", adminroutes);   
 app.use("/api/user", userRoutes);
-app.use("/api/order", orderRoutes);
+app.use("/api/orders", orderRoutes);
 app.use("/api/review", reviewRoutes);
-app.use("/api/product", productRoutes);
+app.use("/api/products", productRoutes);
 app.use("/api/cart", cartRoutes);
 
 // 5. Default/Home Route (AGAR zaroorat hai toh isay niche rakhein)
@@ -46,7 +46,7 @@ app.get("/", (req, res) => res.send("Server is running!"));
 // 6. Static Files (Production)
 if (ENV.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../admin/dist")));
-    app.get("*", (req, res) => {
+    app.get("/{*any}", (req, res) => {
         res.sendFile(path.join(__dirname, "../admin/dist/index.html"));
     });
 }

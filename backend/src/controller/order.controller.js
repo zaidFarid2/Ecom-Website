@@ -49,33 +49,37 @@ export const createOrder = asyncHandler( async(req,res)=>{
         
     }
 })
-export const getUserOrder = asyncHandler( async(req,res)=>{
+export const getUserOrder = asyncHandler(async (req, res) => {
     try {
-      
-        const order = await Order.findById(req.user.cler_id).populate("orderItems.product").sort({createdAt:-1})
-      
-        //chck each order is reviewed
-        const orderId = order.map( (order)=>order._id )
-        const review = await Review.find({orderId:{ $in :order._id} })
-        const reviewOrderId = new set(review.map( (review) => review.orderId.toString() ))
-        const orderWithReviewStatus = await Promise.all(
-            order.map( async(order)=> {
-            const review = await Review.findOne({orderId:order._id })
-                return{
-                ...order.toObject(),
-                hasReviewed:reviewOrderId.has(order._id.toString()),
-            }
-            
-        })
-      )
-    res.status(200).json({orders:orderWithReviewStatus})
-        
-      
 
-    } 
-    catch (error) {
-        console.error("Error in create Order Controller", error);
-        throw new apiError(500, "Internal Server Error");
-    }
+        const orders = await Order.find({ cler_id: req.user.cler_id })
+            .populate("orderItems.product")
+            .sort({ createdAt: -1 });
+
+
+        if (!orders || orders.length === 0) {
+            return res.status(200).json({ orders: [] });
+        }
+
+
+        const orderIds = orders.map((o) => o._id);
+        const reviews = await Review.find({ orderId: { $in: orderIds } });
         
-})  
+        // 3. Set ka 'S' hamesha Capital hota hai
+        const reviewedOrderIdsSet = new Set(reviews.map((r) => r.orderId.toString()));
+
+        // 4. Promise.all ke saath 'new' keyword nahi lagta
+        const orderWithReviewStatus = orders.map((order) => {
+            return {
+                ...order.toObject(),
+                hasReviewed: reviewedOrderIdsSet.has(order._id.toString()),
+            };
+        });
+
+        res.status(200).json({ orders: orderWithReviewStatus });
+
+    } catch (error) {
+        console.error("Error in getUserOrder Controller", error)
+        res.status(500).json({ message: "Internal Server Error", error: error.message });
+    }
+});
