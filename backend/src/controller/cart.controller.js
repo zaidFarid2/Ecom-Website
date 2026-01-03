@@ -1,6 +1,7 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
 import {Cart} from "../models/cart.model.js"
 import { Product } from "../models/prouduct.model.js";
+import ApiError from "../utils/apiError.js";
  
 export const getCart =  asyncHandler(async(req,res)=>{
     try{
@@ -18,7 +19,7 @@ export const getCart =  asyncHandler(async(req,res)=>{
 
     } catch (error) {
         console.error("Error in getting cart Controller", error);
-        throw new apiError(500, "Internal Server Error");           
+        throw new ApiError(500, "Internal Server Error");           
     }
 })
 

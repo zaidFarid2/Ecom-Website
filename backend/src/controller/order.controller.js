@@ -79,7 +79,8 @@ export const getUserOrder = asyncHandler(async (req, res) => {
         res.status(200).json({ orders: orderWithReviewStatus });
 
     } catch (error) {
-        console.error("Error in getUserOrder Controller", error)
+        console.error("Error in getUserOrder Controller", error);
+
         res.status(500).json({ message: "Internal Server Error", error: error.message });
     }
 });
