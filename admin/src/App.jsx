@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router"
 import LoginpPage from "./pages/LoginPage"
 import ProductPage from "./pages/ProductsPage"
 import OrdersPage from "./pages/OrdersPage"
+import Customerpage from "./pages/CustomerPage"
 import DashboardPage from "./pages/DashboardPage"
 import { useAuth } from "@clerk/clerk-react";
 import DashboarLayout from "./layout/DashboardLayout"
@@ -25,7 +26,7 @@ const App = () => {
       <Route path="/" element={isSignedIn ? <DashboarLayout /> : <Navigate to={"/login"} />} >
         <Route index element={< Navigate to={"dashboard"} />} />
         <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/products" element={<ProductPage />} />
+        <Route path="/customers" element={<Customerpage/>} />
         <Route path="/orders" element={<OrdersPage />} />
         <Route path="/products" element={<ProductPage />} />
       </Route>
