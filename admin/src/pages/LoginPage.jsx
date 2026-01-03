@@ -2,10 +2,8 @@ import { SignIn } from '@clerk/clerk-react'
 import React from 'react'
 
 /**
- * Render the login page containing the Clerk SignIn form.
- *
- * Renders a container with a "LoginPage" label and the Clerk `SignIn` component.
- * @returns {JSX.Element} A React element representing the login page.
+ * Renders the login page containing the Clerk SignIn form.
+ * @returns {JSX.Element} The login page element containing the "LoginPage" label and the Clerk `SignIn` component.
  */
 function LoginPage() {
   return (
