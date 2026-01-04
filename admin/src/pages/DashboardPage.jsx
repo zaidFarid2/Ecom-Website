@@ -2,6 +2,7 @@ import React from 'react'
 import { useQuery } from "@tanstack/react-query"
 import { orderApi, statsApi } from '../lib/api.js'
 import {DollarSignIcon, Package2Icon, ShoppingBagIcon, UserIcon} from "lucide-react"
+
 function DashboardPage() {
 
   const { data: orderData, isLoading: ordersLoading, error } = useQuery({
