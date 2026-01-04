@@ -174,13 +174,13 @@ export const getDashboardStats = asyncHandler( async(_,res)=>{
             },
         ])
         const totalRevenue = revenueResult[0]?.total || 0 
-        const totaluser = await User.countDocuments()
-        const totalProducts = await User.countDocuments()
+        const totalCustomers = await User.countDocuments()
+        const totalProducts = await Product.countDocuments()
 
         res.status(200).json({
             totalRevenue,
             totalProducts,
-            totaluser,
+            totalCustomers,
             totalOders,
 
         })

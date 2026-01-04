@@ -16,7 +16,7 @@ router.get("/orders",getAllOrders)
 router.patch("/orders/:orderId/status",updateOrderStatus)
 
 
-router.get("/customer",getAllCustomers)
+router.get("/customers",getAllCustomers)
 router.get("/stats",getDashboardStats)
 
 
