@@ -5,16 +5,16 @@ import ApiError from "../utils/apiError.js";
  
 export const getCart =  asyncHandler(async(req,res)=>{
     try{
-      let cart  = await Cart.findOne({clerId:req.user.clerId}).populate("items.product")
+      let cart  = await Cart.findOne({clerkId:req.user.clerId}).populate("items.product")
       if(!cart){
-        user = req.user
+        const user = req.user
         cart = await Cart.create({
             user:user._id,
-            clerkId:user.clerId,
+            clerkId:user.clerkId,
             items:[]
         })
       }
-      res.status(201).json({cart})  
+      res.status(200).json({cart})  
 
 
     } catch (error) {
