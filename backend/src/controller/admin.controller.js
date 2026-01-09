@@ -50,7 +50,10 @@ catch (error) {
 export const getAllProduct = asyncHandler( async(_,res)=>{
     try {
         const products = await Product.find().sort({createdAt:-1})    
-        res.status(200).json({products})
+        return res.status(200).json({
+            success: true,
+            products: products || [] 
+        })
 } 
     catch (error) {
         throw new apiError(500,"Internal server Issue") 

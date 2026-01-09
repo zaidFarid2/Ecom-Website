@@ -25,7 +25,7 @@ function DashboardPage() {
     },
     {
       name:"Total Orders",
-      value:statsLoading?"...":`$${statsData.totalOrders??"0"}`,
+      value:statsLoading?"...":`$${statsData?.totalOrders??"0"}`,
       icon:<ShoppingBagIcon className='size-8' />
     },
     {
